@@ -109,6 +109,85 @@ Workflow
 
 #. When all PRs are completed the issue is then closed by a developer.
 
+Notes from our developer meeting
+--------------------------------
+
+Here are some notes from yesterday. I apologise for the verbosity and lack of
+diagrams and hope that the words will do the ideas justice. If not, let me know
+and I will try and knock something up (or someone else can if my words make
+sense to them).
+
+The discussion centred around the fact that we need to decide a branching, as
+well as tagging strategy.  A large part of the focus is being able to develop a
+strategy whereby we can work on, test (that is, QE have a fairly static codebase
+to test and for us to fix), and release new features and versions without
+impacting our ability to maintain a stable codebase for current releases. What we
+discussed was the following (using kilo as an example):
+
+* We have a kilo branch where we do bug fixing and releasing of patch versions.
+  Current release is `11.1.x`.
+
+* When we want to develop features toward a next minor (say `11.2`), we would create
+  a `11.2` feature branch and develop features there, periodically rebasing against
+  kilo branch. This leaves the main kilo branch as `11.1.x` and allows us to continue
+  bug fixing there, and releasing patch versions there, whilst not getting polluted
+  with 11.2 code.
+
+* When we are ready to pass a release candidate of `11.2` to qe, we would just tag the
+  rc in that feature branch.  QE can effectively take as long as they need to test
+  it. We would only cherry pick bug fixes from the kilo branch into the feature branch
+  (now a kind of rc branch) as QE demanded, thereby not ‘moving the goalposts’ while
+  they are testing. We would iterate through maybe a few rc tags until QE are happy
+
+* When QE are happy with, say rc3, we would tag the release there, and then merge
+  all that code into kilo. The current kilo release would now be `11.2.x`, and there
+  would be no more `11.1.x` releases
+
+* When we want to start working on `11.3.x`, rinse and repeat
+
+* **pros**: keeps rc branch clean for QE, only ever one main release branch, and one
+  feature branch. cons: requires constant rebasing of feature branch during development,
+  and large merge at release time
+
+A slight alternative arose when I was chatting with Harry and Jesse afterwards. I
+apologise this discussion was not had in the meeting, but I will lay it out here
+for your consideration nonetheless (I gather this may be similar to what Ian had
+already laid out):
+
+* we have a `kilo.next` (or `11.next`) branch where we do feature development as well as
+  bug fixing. This is where we would be developing the features for whatever the next
+  release would be, so using the same example above it would be for `11.2`
+
+* We also have an `11.1` branch which is our *current release*. Pertinent bug fixes
+  would be cherry-picked into here (because they would always be fixed in `11.next`
+  first as that is the main development branch), and this is where we would tag and
+  release our `11.1.x` patch releases
+
+* When we are ready to pass an `11.2` release candidate to QE, we would create the
+  `11.2` branch and tag the rc there. The same *cherry pick only the things that QE
+  find* approach would be used, and we would iterate through a number of release
+  candidate tags in this branch. Once we are ready to release `11.2.0`, we tag it
+  here and keep the branch around as this is now where we would do our releases for
+  `11.2.x`
+
+* `Kilo.next` (or `11.next`) at this point becomes where `11.3` features would get
+  developed (and same as before, where ALL bugs get initially fixed).
+
+* At this point we could/would also get rid of the `11.1` branch as `11.2` is now the
+  current release
+
+* **pros**: no need for feature branch merges, keeps rc branch clean for QE. Branch
+  names can be fully explicit for clarity (eg. `devel/11.next`, `stable/11.1`,
+  `stable/11.2`)
+
+* **cons**: for the rc period prior to release, there would be a double cherry pick
+  process for some bugs (from `.next` into both `11.1` and `11.2` branches).
+
+**NOTE**: In this model, there are no feature branches as such. the `x.next` branch
+should always pass a comprehensive gate. If clean (i.e. gate passing) collaboration
+can’t happen here, then the possibility of using a short lived feature branch would
+still be open
+
 ----
 
 .. Replacements
