@@ -33,6 +33,10 @@ nova_rpc_conn_pool_size: "{{ rpc_conn_pool_size }}"
 nova_rpc_response_timeout: "{{ rpc_response_timeout }}"
 nova_rpc_thread_pool_size: "{{ rpc_thread_pool_size }}"
 
+nova_nova_conf_overrides:
+  DEFAULT:
+    config_drive_format: "vfat"
+
 # Nova config overrides
 nova_cross_az_attach: False
 
