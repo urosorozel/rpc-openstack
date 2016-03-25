@@ -85,3 +85,8 @@ nova_ceilometer_enabled: False
 swift_ceilometer_enabled: False
 keystone_ceilometer_enabled: False
 tempest_service_available_ceilometer: False
+
+# Diasble port security binding for liberty. See https://bugs.launchpad.net/neutron/+bug/1509312
+neutron_ml2_conf_ini_overrides:
+    ml2:
+        extension_drivers: ''
