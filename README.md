@@ -137,7 +137,7 @@ Please note the following behaviors that are **destructive**:
 
 # Linting
 
-If you would like to lint against a version of ansible that is not the
+If you would like to lint against a version of ansible that is NOT the
 default, set the `ANSIBLE_VERSION` environment variable to the proper pip
 version specification:
 
