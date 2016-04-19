@@ -7,6 +7,8 @@
 - name: ceph-osd
   src: https://github.com/ceph/ansible-ceph-osd.git
   version: f77df394b66f41f8603ca01cd406138ebbc3c801
+- name: pip_lock_down
+  src: https://github.com/openstack/openstack-ansible-pip_lock_down
 - name: openstack-ansible-ironic
   src: https://github.com/openstack/openstack-ansible-ironic
 
