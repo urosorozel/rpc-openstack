@@ -8,5 +8,5 @@
   src: https://github.com/ceph/ansible-ceph-osd.git
   version: f77df394b66f41f8603ca01cd406138ebbc3c801
 - name: openstack-ansible-ironic
-  src: https://git.openstack.org/openstack/openstack-ansible-ironic
+  src: https://github.com/openstack/openstack-ansible-ironic
 
