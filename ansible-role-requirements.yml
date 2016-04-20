@@ -7,25 +7,3 @@
 - name: ceph-osd
   src: https://github.com/ceph/ansible-ceph-osd.git
   version: 434a13f4d3ee3f60c410052d2670d5dfea034bf8
-- name: apt_package_pinning
-  scm: git
-  src: https://github.com/openstack/openstack-ansible-apt_package_pinning
-  version: master
-- name: pip_install
-  scm: git
-  src: https://github.com/openstack/openstack-ansible-pip_install
-  version: master
-- name: pip_lock_down
-  scm: git
-  src: https://github.com/openstack/openstack-ansible-pip_lock_down
-  version: master
-- name: galera_client
-  scm: git
-  src: https://github.com/openstack/openstack-ansible-galera_client
-  version: master
-- name: openstack_openrc
-  scm: git
-  src: https://git.openstack.org/openstack/openstack-ansible-openstack_openrc
-  version: master
-- name: openstack-ansible-ironic
-  src: https://github.com/openstack/openstack-ansible-ironic
