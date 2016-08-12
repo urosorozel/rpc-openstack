@@ -81,8 +81,9 @@ if [[ "${DEPLOY_AIO}" == "yes" ]]; then
 
     # Copy ironic AIO config if ironic is enabled
     if [[ "$DEPLOY_IRONIC" == "yes" ]]; then
-      cp -a -a ${OA_DIR}/etc/openstack_deploy/conf.d/ironic.yml.aio /etc/openstack_deploy/conf.d/ironic.yml
-      cp -a -a ${OA_DIR}/etc/openstack_deploy/env.d/ironic.yml /etc/openstack_deploy/env.d/
+      cp -a ${OA_DIR}/etc/openstack_deploy/conf.d/ironic.yml.aio /etc/openstack_deploy/conf.d/ironic.yml
+      cp -a ${OA_DIR}/etc/openstack_deploy/env.d/ironic.yml /etc/openstack_deploy/env.d/
+      echo "nova_virt_type: ironic" >> $RPCD_VARS
     fi
 
     # set the necessary bits for ceph
