@@ -1,0 +1,4 @@
+[submodule "openstack-ansible"]
+	path = openstack-ansible
+	url = git@github.com:cfarquhar/openstack-ansible.git
+	branch = custom/mitaka
