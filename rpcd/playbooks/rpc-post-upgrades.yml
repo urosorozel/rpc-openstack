@@ -1,5 +1,5 @@
 ---
-# Copyright 2014, Rackspace US, Inc.
+# Copyright 2016, Rackspace US, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,20 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-galaxy_info:
-  author: rcbops
-  description: Server configuration for Rackspace support
-  company: Rackspace
-  license: Apache2
-  min_ansible_version: 1.6.6
-  platforms:
-    - name: Ubuntu
-      versions:
-        - trusty
-  categories:
-    - support
-    - rackspace
-    - backups
-
-dependencies:
-  - pip_lock_down
+- name: Run post-upgrade tasks
+  hosts: galera_all:rabbitmq:utility:swift_proxy:elasticsearch_container
+  user: root
+  any_errors_fatal: true
+  roles:
+    - rpc_post_upgrade

@@ -1,5 +1,5 @@
 ---
-# Copyright 2014, Rackspace US, Inc.
+# Copyright 2016, Rackspace US, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,20 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-galaxy_info:
-  author: rcbops
-  description: Server configuration for Rackspace support
-  company: Rackspace
-  license: Apache2
-  min_ansible_version: 1.6.6
-  platforms:
-    - name: Ubuntu
-      versions:
-        - trusty
-  categories:
-    - support
-    - rackspace
-    - backups
+- name: Grab full output of rabbitmqctl cluster_status
+  command: "rabbitmqctl cluster_status"
+  register: rabbitmqctl_output
+  failed_when: "rabbitmqctl_output.rc != 0"
 
-dependencies:
-  - pip_lock_down
+- name: Display output of rabbitmqctl cluster_status
+  debug: var=rabbitmqctl_output
+
+# Verify rabbit is not partitioned
+# Here we check to see if partitions is empty
+- name: Fail if network partitions are detected
+  fail:
+    msg: "Rabbitmq network partitions have been detected."
+  when: "'{partitions,[]}' not in rabbitmqctl_output.stdout"
