@@ -54,6 +54,12 @@
     group: "root"
     mode: "0600"
 
+#TODO(cfarquhar): This task is a workaround for http://github.com/racker/rackspace-monitoring-cli/issues/85
+#		  Once it's fixed this task should be removed.
+- name: Replace rackspace-monitoring-cli's CA cert bundle with our system bundle
+  shell: |
+    cp /etc/ssl/certs/ca-certificates.crt {{ maas_venv }}/lib/python2.7/site-packages/raxmon_cli/data/cacert.pem
+
 - name: Verify raxmon-entities-list and MaaS API authentication does not fail
   shell: |
     {% if maas_venv_enabled | bool %}
