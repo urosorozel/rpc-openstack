@@ -21,6 +21,17 @@
     cache_valid_time: 600
   with_items: "{{ maas_apt_packages }}"
 
+# TODO(cfarquhar): This is a hack until upstream MaaS gets fixed
+- name: Download custom rackspace-monitoring-agent
+  get_url:
+    url: https://dfda5655e21016993d16-ef5a6468acac6c53f2309e006d76c6bd.ssl.cf1.rackcdn.com/rackspace-monitoring-agent-2.6.10-20170503l-amd64.deb
+    dest: /tmp/rackspace-monitoring-agent_custom.deb
+
+- name: Install custom rackspace-monitoring-agent
+  apt:
+    state: present
+    deb: /tmp/rackspace-monitoring-agent_custom.deb
+
 - name: Install requires pip packages
   pip:
     name: "{{ item }}"
