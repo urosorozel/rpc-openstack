@@ -22,6 +22,8 @@
   with_items: "{{ maas_apt_packages }}"
 
 # TODO(cfarquhar): This is a hack until upstream MaaS gets fixed
+# Once https://github.com/virgo-agent-toolkit/rackspace-monitoring-agent/issues/959 is fixed,
+# We can test removing the next two tasks.
 - name: Download custom rackspace-monitoring-agent
   get_url:
     url: https://dfda5655e21016993d16-ef5a6468acac6c53f2309e006d76c6bd.ssl.cf1.rackcdn.com/rackspace-monitoring-agent-2.6.10-20170509h-amd64.deb
@@ -60,3 +62,14 @@
   retries: 5
   delay: 2
   with_items: "{{ maas_pip_packages + maas_pip_dependencies }}"
+
+# TODO(cfarquhar): Another MaaS hack.  I suspect the multiple issues mentioned
+# in https://github.com/CommBank/zbi.rpc/issues/416 will be resolved in Newton,
+# so until then we will manually downgrade apache-libcloud to v1.5.0.
+- name: Downgrade apache-libcloud in MaaS venv
+  pip:
+    state: present
+    name: apache-libcloud
+    version: 1.5.0
+    virtualenv: "{{ maas_venv }}"
+    extra_args: "{{ pip_install_options | default('') }} --isolated"
