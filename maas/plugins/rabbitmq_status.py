@@ -18,6 +18,7 @@
 import optparse
 import subprocess
 
+from itertools import chain
 from maas_common import metric
 from maas_common import metric_bool
 from maas_common import print_output
@@ -112,8 +113,13 @@ def _get_connection_metrics(session, metrics, host, port):
 
     response = _get_rabbit_json(session, CONNECTIONS_URL % (host, port))
 
-    max_chans = max(connection['channels'] for connection in response
-                    if 'channels' in connection)
+# NOTE(cfarquhar): the itertools.chain invocation below is a pre-Python3 hack
+# to default to 0 if we get an empty list of of connections back.
+
+# TODO(cfarquhar): Replace this once https://github.com/rcbops/rpc-maas/issues/253 is
+# resolved
+    max_chans = max(chain(connection['channels'] for connection in response
+                    if 'channels' in connection), [0])
     for k in CONNECTIONS_METRICS:
         metrics[k] = {'value': max_chans, 'unit': CONNECTIONS_METRICS[k]}
 
