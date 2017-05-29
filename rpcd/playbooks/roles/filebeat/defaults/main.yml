@@ -184,6 +184,28 @@ filebeat_logging_paths:
     - openstack
     - swift
     - swift-proxy
+  - paths:
+    - '/var/log/ironic/ironic_*.log'
+    document_type: openstack
+    tags:
+    - openstack
+    - oslofmt
+    - ironic
+    multiline:
+      pattern: "{{ multiline_openstack_pattern }}"
+      negate: 'true'
+      match: after
+  - paths:
+    - '/var/log/ironic/ironic-conductor.log'
+    document_type: openstack
+    tags:
+    - openstack
+    - oslofmt
+    - ironic-conductor
+    multiline:
+      pattern: "{{ multiline_openstack_pattern }}"
+      negate: 'true'
+      match: after
   # Start of non-OpenStack services whose logs we'd like to ship
   - paths:
     - '/var/log/apparmor/*.log'
@@ -199,7 +221,7 @@ filebeat_logging_paths:
     tags:
     - fsck
   - paths:
-    - '/var/log/haproxy/*.log'
+    - '/var/log/haproxy.log'
     tags:
     - haproxy
     - infrastructure
