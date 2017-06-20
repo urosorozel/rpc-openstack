@@ -74,7 +74,7 @@
     skip_tags:
       - config
     skip_handlers: True
-    image_name: "{{ role_name | replace('os_', '') }}"
+    image_name: "{{ role_name | replace('os_', '') | replace('rpc-role-', '') }}"
   vars_files:
     - container-vars.yml
   pre_tasks:
@@ -99,6 +99,25 @@
         umount /proc || true
       tags:
         - always
+
+- name: Clean LXC
+  hosts: lxc_container_artifact_chroots
+  gather_facts: True
+  connection: chroot
+  strategy: tagfilter
+  tasks:
+    - name: Unmount proc
+      shell:
+        umount proc || true
+
+- name: Create artifact container
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: umount proc
+      shell: |
+        umount /var/lib/lxc/LXC_NAME/rootfs/proc || true
 
 - name: Create artifact container
   hosts: localhost
@@ -126,7 +145,7 @@
         - "{{ lxc_image_folder }}/"
     - name: Create lxc image
       shell: |
-        tar -Opc -C /var/lib/lxc/LXC_NAME/rootfs . | \
+        tar  -Opc -C /var/lib/lxc/LXC_NAME/rootfs . | \
           {{ xz_bin[ansible_distribution | lower] }} -{{ compression_ratio }} \
           -c - > rootfs.tar.xz
       args:

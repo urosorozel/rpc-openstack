@@ -56,7 +56,7 @@
     # hosts have the correct rpco repo configured now that
     # /etc/apt/sources.list has been changed to no longer
     # include the updates repo.
-    - role: "pip_install"
-      pip_lock_to_internal_repo: False
-      pip_upstream_url: "{{ rpco_mirror_base_url }}/os-releases/{{ rpc_release }}/{{ os_distro_version }}/get-pip.py"
-      pip_install_upper_constraints: "{{ rpco_mirror_base_url }}/os-releases/{{ rpc_release }}/{{ os_distro_version }}/requirements_absolute_requirements.txt"
+#    - role: "pip_install"
+#      pip_lock_to_internal_repo: False
+#      pip_upstream_url: "{{ rpco_mirror_base_url }}/os-releases/{{ rpc_release }}/{{ os_distro_version }}/get-pip.py"
+#      pip_install_upper_constraints: "{{ rpco_mirror_base_url }}/os-releases/{{ rpc_release }}/{{ os_distro_version }}/requirements_absolute_requirements.txt"

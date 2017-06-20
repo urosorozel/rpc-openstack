@@ -2,4 +2,9 @@
 
 # Base repository
 deb {{ host_ubuntu_repo }} {{ ansible_distribution_release }} main universe
+# Additional distribution repositories
+deb http://archive.ubuntu.com/ubuntu xenial-updates main universe
+deb http://archive.ubuntu.com/ubuntu xenial-backports main universe
 
+# Security repository
+deb http://security.ubuntu.com/ubuntu xenial-security main universe

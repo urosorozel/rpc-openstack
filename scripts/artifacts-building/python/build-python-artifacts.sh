@@ -72,15 +72,16 @@ cd /opt/rpc-openstack/openstack-ansible/playbooks
 # This is also being done to ensure that the python artifacts are built using
 # the same sources as the container artifacts will use.
 openstack-ansible /opt/rpc-openstack/rpcd/playbooks/configure-apt-sources.yml \
-                  -e "host_ubuntu_repo=http://mirror.rackspace.com/ubuntu" \
+                  -e "host_ubuntu_repo=http://archive.ubuntu.com/ubuntu rpco_mirror_base_url=http://archive.ubuntu.com/ubuntu" \
                   ${ANSIBLE_PARAMETERS}
 
 # Setup the repo container and build the artifacts
 openstack-ansible setup-hosts.yml \
-                  -e container_group=repo_all \
+                  -e "container_group=repo_all rpco_mirror_base_url=http://archive.ubuntu.com/ubuntu" \
                   ${ANSIBLE_PARAMETERS}
 
-openstack-ansible repo-install.yml \
+openstack-ansible repo-install.yml  \
+                  -e "ansible_python_interpreter=/usr/bin/python rpco_mirror_base_url=http://archive.ubuntu.com/ubuntu" \
                   ${ANSIBLE_PARAMETERS}
 
 

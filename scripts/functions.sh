@@ -42,7 +42,7 @@ export ANSIBLE_PARAMETERS=${ANSIBLE_PARAMETERS:-''}
 export FORKS=${FORKS:-$(grep -c ^processor /proc/cpuinfo)}
 
 export HOST_SOURCES_REWRITE=${HOST_SOURCES_REWRITE:-"yes"}
-export HOST_UBUNTU_REPO=${HOST_UBUNTU_REPO:-"http://mirror.rackspace.com/ubuntu"}
+export HOST_UBUNTU_REPO=${HOST_UBUNTU_REPO:-"http://archive.ubuntu.com/ubuntu"}
 export HOST_RCBOPS_REPO=${HOST_RCBOPS_REPO:-"http://rpc-repo.rackspace.com"}
 
 # Derive the rpc_release version from the group vars
@@ -135,8 +135,8 @@ function configure_apt_sources {
   sed -i '/-updates /d' /etc/apt/sources.list
 
   # Add the RPC-O apt repo source
-  echo "deb ${HOST_RCBOPS_REPO}/apt-mirror/integrated/ ${RPC_RELEASE}-${DISTRIB_CODENAME} main" \
-    > /etc/apt/sources.list.d/rpco.list
+  #echo "deb ${HOST_RCBOPS_REPO}/apt-mirror/integrated/ ${RPC_RELEASE}-${DISTRIB_CODENAME} main" \
+  #  > /etc/apt/sources.list.d/rpco.list
 
   # Install the RPC-O apt repo key
   curl --silent --fail ${HOST_RCBOPS_REPO}/apt-mirror/rcbops-release-signing-key.asc | apt-key add -

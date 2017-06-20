@@ -184,3 +184,4 @@ if [[ "${DEPLOY_RPC}" == "yes" ]]; then
   # Begin the RPC installation
   bash ${BASE_DIR}/scripts/deploy-rpc-playbooks.sh
 fi
+#run_ansible horizon_extensions.yml

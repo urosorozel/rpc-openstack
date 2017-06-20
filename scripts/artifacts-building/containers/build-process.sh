@@ -42,6 +42,7 @@ export ANSIBLE_ROLE_FETCH_MODE="git-clone"
 
 function patch_all_roles {
     for role_name in *; do
+        echo "ROLE NAME: ${role_name}"
         cd /etc/ansible/roles/$role_name;
         git am <  /opt/rpc-openstack/scripts/artifacts-building/containers/patches/$role_name;
     done
@@ -58,6 +59,7 @@ ln -sfn ${PWD} /opt/rpc-openstack
 
 # Bootstrap Ansible and the AIO config
 cd /opt/rpc-openstack
+. scripts/functions.sh
 ./scripts/bootstrap-ansible.sh
 ./scripts/bootstrap-aio.sh
 
@@ -85,12 +87,12 @@ cd scripts/artifacts-building/
 cp user_*.yml /etc/openstack_deploy/
 
 # Prepare role patching
-git config --global user.email "rcbops@rackspace.com"
-git config --global user.name "RCBOPS gating"
+#git config --global user.email "rcbops@rackspace.com"
+#git config --global user.name "RCBOPS gating"
 
 # Patch the roles
-cd containers/patches/
-patch_all_roles
+#cd containers/patches/
+#patch_all_roles
 
 # Run playbooks
 cd /opt/rpc-openstack/openstack-ansible/playbooks
@@ -105,7 +107,7 @@ openstack-ansible /opt/rpc-openstack/rpcd/playbooks/configure-apt-sources.yml \
                   ${ANSIBLE_PARAMETERS}
 
 # Setup the host
-openstack-ansible setup-hosts.yml --limit lxc_hosts,hosts
+openstack-ansible setup-hosts.yml -e "repo_release_path="  --limit lxc_hosts,hosts
 
 # Move back to artifacts-building dir
 cd /opt/rpc-openstack/scripts/artifacts-building/
@@ -114,11 +116,12 @@ cd /opt/rpc-openstack/scripts/artifacts-building/
 openstack-ansible containers/artifact-build-chroot.yml \
                   -e role_name=pip_install \
                   -e image_name=default \
+                  -e rpco_mirror_base_url=http://172.99.88.30 \
                   ${ANSIBLE_PARAMETERS}
 
 # Build the list of roles to build containers for
 role_list=""
-role_list="${role_list} elasticsearch kibana logstash memcached_server"
+role_list="${role_list} elasticsearch kibana rpc-role-logstash memcached_server"
 role_list="${role_list} os_cinder os_glance os_heat os_horizon os_ironic"
 role_list="${role_list} os_keystone os_neutron os_nova os_swift os_tempest"
 role_list="${role_list} rabbitmq_server repo_server rsyslog_server"
@@ -127,6 +130,7 @@ role_list="${role_list} rabbitmq_server repo_server rsyslog_server"
 for cnt in ${role_list}; do
   openstack-ansible containers/artifact-build-chroot.yml \
                     -e role_name=${cnt} \
+                    -e rpco_mirror_base_url=http://172.99.88.30 \
                     ${ANSIBLE_PARAMETERS}
 done
 
@@ -159,7 +163,7 @@ if [[ "$(echo ${PUSH_TO_MIRROR} | tr [a-z] [A-Z])" == "YES" ]]; then
 
     # test the uploaded metadata: fetching the metadata file, fetching a
     # container, and checking integrity of the downloaded artifact.
-    openstack-ansible containers/test-uploaded-container-metadata.yml -v
+    openstack-ansible containers/test-uploaded-container-metadata.yml -v -e rpco_mirror_base_url=http://172.99.88.30 
   fi
 else
   echo "Skipping upload to rpc-repo as the PUSH_TO_MIRROR env var is not set to 'YES'."

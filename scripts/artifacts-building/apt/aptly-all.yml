@@ -16,14 +16,17 @@
 - include: aptly-install-and-mirror.yml
   vars:
     aptly_mirror_do_updates: "False"
+    ansible_python_interpreter: /usr/bin/python
 
 - include: sync-with-mirror.yml
   when: "{{ lookup('ENV','PULL_FROM_MIRROR') | bool }}"
   vars:
     action: "pull-aptly"
+    ansible_python_interpreter: /usr/bin/python
 
 - include: aptly-install-and-mirror.yml
   vars:
+    ansible_python_interpreter: /usr/bin/python
     aptly_mirror_do_updates: "True"
 
 # The behavior is changed if RECREATE_SNAPSHOTS is true.
@@ -49,8 +52,10 @@
   when: "{{ lookup('ENV','PUSH_TO_MIRROR') | bool }}"
   vars:
     action: "push-aptly"
+  tags: mirror
 
 - include: sync-with-mirror.yml
   when: "{{ lookup('ENV','PUSH_TO_MIRROR') | bool }}"
   vars:
     action: "push-gpg"
+  tags: mirror
