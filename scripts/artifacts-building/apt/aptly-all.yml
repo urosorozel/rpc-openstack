@@ -30,18 +30,18 @@
     aptly_mirror_do_updates: "True"
 
 # The behavior is changed if RECREATE_SNAPSHOTS is true.
-- include: aptly-snapshot-create.yml
-  vars:
-    distribution_release: "trusty"
+#- include: aptly-snapshot-create.yml
+#  vars:
+#    distribution_release: "trusty"
 
 - include: aptly-snapshot-create.yml
   vars:
     distribution_release: "xenial"
 
-- include: aptly-snapshot-publish.yml
-  when: "{{ lookup('ENV','PUBLISH_SNAPSHOT') | bool }}"
-  vars:
-    distribution_release: "trusty"
+#- include: aptly-snapshot-publish.yml
+#  when: "{{ lookup('ENV','PUBLISH_SNAPSHOT') | bool }}"
+#  vars:
+#    distribution_release: "trusty"
 
 - include: aptly-snapshot-publish.yml
   when: "{{ lookup('ENV','PUBLISH_SNAPSHOT') | bool }}"

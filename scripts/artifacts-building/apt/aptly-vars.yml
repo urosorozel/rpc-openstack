@@ -60,8 +60,8 @@ aptly_miko_mapping:
     - "slushie-{{ rpc_release }}-elastic-es-2.x-ALL"
   xenial:
     - "slushie-{{ rpc_release }}-ubuntu-updates-xenial"
-    - "slushie-{{ rpc_release }}-uca-newton-updates-xenial"
-    - "slushie-{{ rpc_release }}-mariadb-10.0-xenial"
+    - "slushie-{{ rpc_release }}-uca-ocata-updates-xenial"
+    - "slushie-{{ rpc_release }}-mariadb-10.1-xenial"
     - "slushie-{{ rpc_release }}-percona-xenial"
     - "slushie-{{ rpc_release }}-rabbitmq-downloaded-packages-{{ rpc_release }}-ALL"
     - "slushie-{{ rpc_release }}-elastic-logstash-2.3-ALL"
@@ -154,9 +154,9 @@ aptly_mirrors:
     update_flags:
       - "-keyring='trustedkeys.gpg'"
     do_update: "{{ aptly_mirror_do_updates }}"
-  - name: uca-newton-updates-xenial
+  - name: uca-ocata-updates-xenial
     archive_url: http://ubuntu-cloud.archive.canonical.com/ubuntu
-    distribution: xenial-updates/newton
+    distribution: xenial-updates/ocata
     component1:
       - main
     state: "present"
@@ -185,8 +185,8 @@ aptly_mirrors:
     update_flags:
       - "-keyring='trustedkeys.gpg'"
     do_update: "{{ aptly_mirror_do_updates }}"
-  - name: mariadb-10.0-xenial
-    archive_url: http://mirror.rackspace.com/mariadb/repo/10.0/ubuntu
+  - name: mariadb-10.1-xenial
+    archive_url: http://mirror.rackspace.com/mariadb/repo/10.1/ubuntu
     distribution: xenial
     component1:
       - main
