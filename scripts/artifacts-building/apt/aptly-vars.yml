@@ -89,40 +89,40 @@ aptly_dont_snapshot_list: []
 #in the name of the mirror or of the repo, please
 #give either trusty/xenial (wherever appropriate) or ALL (for all distros)
 aptly_mirrors:
-  - name: ubuntu-updates-trusty
-    archive_url: http://mirror.rackspace.com/ubuntu
-    distribution: trusty-updates
-    component1:
-      - main
-      - universe
-    create_flags:
-      - "-keyring='trustedkeys.gpg'"
-    update_flags:
-      - "-keyring='trustedkeys.gpg'"
-    state: "present"
-    gpg:
-      key: "C0B21F32 437D05B5 EFE21092"
-      server: "hkp://keyserver.ubuntu.com:80"
-      keyring: "trustedkeys.gpg"
-    do_update: "{{ aptly_mirror_do_updates }}"
-  - name: ubuntu-backports-trusty
-    archive_url: http://mirror.rackspace.com/ubuntu
-    distribution: trusty-backports
-    component1:
-      - main
-      - universe
-    create_flags:
-      - "-filter='apparmor | cgmanager | lxc'"
-      - "-filter-with-deps"
-      - "-keyring='trustedkeys.gpg'"
-    update_flags:
-      - "-keyring='trustedkeys.gpg'"
-    state: "present"
-    gpg:
-      key: "C0B21F32 437D05B5 EFE21092"
-      server: "hkp://keyserver.ubuntu.com:80"
-      keyring: "trustedkeys.gpg"
-    do_update: "{{ aptly_mirror_do_updates }}"
+#  - name: ubuntu-updates-trusty
+#    archive_url: http://mirror.rackspace.com/ubuntu
+#    distribution: trusty-updates
+#    component1:
+#      - main
+#      - universe
+#    create_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    update_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    state: "present"
+#    gpg:
+#      key: "C0B21F32 437D05B5 EFE21092"
+#      server: "hkp://keyserver.ubuntu.com:80"
+#      keyring: "trustedkeys.gpg"
+#    do_update: "{{ aptly_mirror_do_updates }}"
+#  - name: ubuntu-backports-trusty
+#    archive_url: http://mirror.rackspace.com/ubuntu
+#    distribution: trusty-backports
+#    component1:
+#      - main
+#      - universe
+#    create_flags:
+#      - "-filter='apparmor | cgmanager | lxc'"
+#      - "-filter-with-deps"
+#      - "-keyring='trustedkeys.gpg'"
+#    update_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    state: "present"
+#    gpg:
+#      key: "C0B21F32 437D05B5 EFE21092"
+#      server: "hkp://keyserver.ubuntu.com:80"
+#      keyring: "trustedkeys.gpg"
+#    do_update: "{{ aptly_mirror_do_updates }}"
   - name: ubuntu-updates-xenial
     archive_url: http://mirror.rackspace.com/ubuntu
     distribution: xenial-updates
@@ -139,21 +139,21 @@ aptly_mirrors:
       server: "hkp://keyserver.ubuntu.com:80"
       keyring: "trustedkeys.gpg"
     do_update: "{{ aptly_mirror_do_updates }}"
-  - name: uca-mitaka-updates-trusty
-    archive_url: http://ubuntu-cloud.archive.canonical.com/ubuntu
-    distribution: trusty-updates/mitaka
-    component1:
-      - main
-    state: "present"
-    gpg:
-      key: "EC4926EA"
-      server: "hkp://keyserver.ubuntu.com:80"
-      keyring: "trustedkeys.gpg"
-    create_flags:
-      - "-keyring='trustedkeys.gpg'"
-    update_flags:
-      - "-keyring='trustedkeys.gpg'"
-    do_update: "{{ aptly_mirror_do_updates }}"
+#  - name: uca-mitaka-updates-trusty
+#    archive_url: http://ubuntu-cloud.archive.canonical.com/ubuntu
+#    distribution: trusty-updates/mitaka
+#    component1:
+#      - main
+#    state: "present"
+#    gpg:
+#      key: "EC4926EA"
+#      server: "hkp://keyserver.ubuntu.com:80"
+#      keyring: "trustedkeys.gpg"
+#    create_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    update_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    do_update: "{{ aptly_mirror_do_updates }}"
   - name: uca-ocata-updates-xenial
     archive_url: http://ubuntu-cloud.archive.canonical.com/ubuntu
     distribution: xenial-updates/ocata
@@ -169,22 +169,22 @@ aptly_mirrors:
     update_flags:
       - "-keyring='trustedkeys.gpg'"
     do_update: "{{ aptly_mirror_do_updates }}"
-  - name: mariadb-10.0-trusty
-    archive_url: http://mirror.rackspace.com/mariadb/repo/10.0/ubuntu
-    distribution: trusty
-    component1:
-      - main
-    state: "present"
-    gpg:
-      key: "cbcb082a1bb943db"
-      #key: "0xcbcb082a1bb943db"
-      server: "hkp://keyserver.ubuntu.com:80"
-      keyring: "trustedkeys.gpg"
-    create_flags:
-      - "-keyring='trustedkeys.gpg'"
-    update_flags:
-      - "-keyring='trustedkeys.gpg'"
-    do_update: "{{ aptly_mirror_do_updates }}"
+#  - name: mariadb-10.0-trusty
+#    archive_url: http://mirror.rackspace.com/mariadb/repo/10.0/ubuntu
+#    distribution: trusty
+#    component1:
+#      - main
+#    state: "present"
+#    gpg:
+#      key: "cbcb082a1bb943db"
+#      #key: "0xcbcb082a1bb943db"
+#      server: "hkp://keyserver.ubuntu.com:80"
+#      keyring: "trustedkeys.gpg"
+#    create_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    update_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    do_update: "{{ aptly_mirror_do_updates }}"
   - name: mariadb-10.1-xenial
     archive_url: http://mirror.rackspace.com/mariadb/repo/10.1/ubuntu
     distribution: xenial
@@ -201,21 +201,21 @@ aptly_mirrors:
     update_flags:
       - "-keyring='trustedkeys.gpg'"
     do_update: "{{ aptly_mirror_do_updates }}"
-  - name: percona-trusty
-    archive_url: http://repo.percona.com/apt
-    distribution: trusty
-    component1:
-      - main
-    state: "present"
-    gpg:
-      key: "9334a25f8507efa5"
-      server: "hkp://keyserver.ubuntu.com:80"
-      keyring: "trustedkeys.gpg"
-    create_flags:
-      - "-keyring='trustedkeys.gpg'"
-    update_flags:
-      - "-keyring='trustedkeys.gpg'"
-    do_update: "{{ aptly_mirror_do_updates }}"
+#  - name: percona-trusty
+#    archive_url: http://repo.percona.com/apt
+#    distribution: trusty
+#    component1:
+#      - main
+#    state: "present"
+#    gpg:
+#      key: "9334a25f8507efa5"
+#      server: "hkp://keyserver.ubuntu.com:80"
+#      keyring: "trustedkeys.gpg"
+#    create_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    update_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    do_update: "{{ aptly_mirror_do_updates }}"
   - name: percona-xenial
     archive_url: http://repo.percona.com/apt
     distribution: xenial
@@ -231,21 +231,21 @@ aptly_mirrors:
     update_flags:
       - "-keyring='trustedkeys.gpg'"
     do_update: "{{ aptly_mirror_do_updates }}"
-  - name: haproxy-trusty
-    archive_url: http://ppa.launchpad.net/vbernat/haproxy-1.5/ubuntu
-    distribution: trusty
-    component1:
-      - main
-    state: "present"
-    gpg:
-      key: "cffb779aadc995e4f350a060505d97a41c61b9cd"
-      server: "hkp://keyserver.ubuntu.com:80"
-      keyring: "trustedkeys.gpg"
-    create_flags:
-      - "-keyring='trustedkeys.gpg'"
-    update_flags:
-      - "-keyring='trustedkeys.gpg'"
-    do_update: "{{ aptly_mirror_do_updates }}"
+#  - name: haproxy-trusty
+#    archive_url: http://ppa.launchpad.net/vbernat/haproxy-1.5/ubuntu
+#    distribution: trusty
+#    component1:
+#      - main
+#    state: "present"
+#    gpg:
+#      key: "cffb779aadc995e4f350a060505d97a41c61b9cd"
+#      server: "hkp://keyserver.ubuntu.com:80"
+#      keyring: "trustedkeys.gpg"
+#    create_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    update_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    do_update: "{{ aptly_mirror_do_updates }}"
   # Rabbitmq:
   # Got the key from:
   # wget https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
@@ -340,51 +340,51 @@ aptly_mirrors:
     update_flags:
       - "-keyring='trustedkeys.gpg'"
     do_update: "{{ aptly_mirror_do_updates }}"
-  - name: hwraid-trusty
-    archive_url: http://hwraid.le-vert.net/ubuntu/
-    distribution: trusty
-    component1:
-      - main
-    state: "present"
-    gpg:
-      key: "23B3D3B4"
-      server: "hkp://keyserver.ubuntu.com:80"
-      keyring: "trustedkeys.gpg"
-    create_flags:
-      - "-keyring='trustedkeys.gpg'"
-    update_flags:
-      - "-keyring='trustedkeys.gpg'"
-    do_update: "{{ aptly_mirror_do_updates }}"
-  - name: hwraid-xenial
-    archive_url: http://hwraid.le-vert.net/ubuntu/
-    distribution: wily
-    component1:
-      - main
-    state: "present"
-    gpg:
-      key: "23B3D3B4"
-      server: "hkp://keyserver.ubuntu.com:80"
-      keyring: "trustedkeys.gpg"
-    create_flags:
-      - "-keyring='trustedkeys.gpg'"
-    update_flags:
-      - "-keyring='trustedkeys.gpg'"
-    do_update: "{{ aptly_mirror_do_updates }}"
-  - name: rax-maas-trusty
-    archive_url: http://stable.packages.cloudmonitoring.rackspace.com/ubuntu-14.04-x86_64/
-    distribution: cloudmonitoring
-    component1:
-      - main
-    state: "present"
-    gpg:
-      key: "D05AB914"
-      server: "hkp://keyserver.ubuntu.com:80"
-      keyring: "trustedkeys.gpg"
-    create_flags:
-      - "-keyring='trustedkeys.gpg'"
-    update_flags:
-      - "-keyring='trustedkeys.gpg'"
-    do_update: "{{ aptly_mirror_do_updates }}"
+#  - name: hwraid-trusty
+#    archive_url: http://hwraid.le-vert.net/ubuntu/
+#    distribution: trusty
+#    component1:
+#      - main
+#    state: "present"
+#    gpg:
+#      key: "23B3D3B4"
+#      server: "hkp://keyserver.ubuntu.com:80"
+#      keyring: "trustedkeys.gpg"
+#    create_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    update_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    do_update: "{{ aptly_mirror_do_updates }}"
+#  - name: hwraid-xenial
+#    archive_url: http://hwraid.le-vert.net/ubuntu/
+#    distribution: wily
+#    component1:
+#      - main
+#    state: "present"
+#    gpg:
+#      key: "23B3D3B4"
+#      server: "hkp://keyserver.ubuntu.com:80"
+#      keyring: "trustedkeys.gpg"
+#    create_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    update_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    do_update: "{{ aptly_mirror_do_updates }}"
+#  - name: rax-maas-trusty
+#    archive_url: http://stable.packages.cloudmonitoring.rackspace.com/ubuntu-14.04-x86_64/
+#    distribution: cloudmonitoring
+#    component1:
+#      - main
+#    state: "present"
+#    gpg:
+#      key: "D05AB914"
+#      server: "hkp://keyserver.ubuntu.com:80"
+#      keyring: "trustedkeys.gpg"
+#    create_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    update_flags:
+#      - "-keyring='trustedkeys.gpg'"
+#    do_update: "{{ aptly_mirror_do_updates }}"
   - name: rax-maas-xenial
     archive_url: http://stable.packages.cloudmonitoring.rackspace.com/ubuntu-16.04-x86_64/
     distribution: cloudmonitoring
